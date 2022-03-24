@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken'
+import config from '../config.js'
 
 
 // Our "security guard" we can put in front of any door (=route)
@@ -15,7 +16,7 @@ export const auth = (req, res, next) => {
     })
   }
 
-  const SECRET = "daHolySecretPrettyLenghtyWithLoadsOfSpecialCharsIdeally"
+  const SECRET = config.JWT_SECRET
 
   try {
     // Verify token and extract payload => { _id, email }

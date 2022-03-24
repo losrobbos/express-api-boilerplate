@@ -1,5 +1,6 @@
 import express from "express"
 import jwt from 'jsonwebtoken'
+import config from '../config.js'
 
 const authRouter = express.Router()
 
@@ -34,7 +35,7 @@ authRouter.post("/login", (req, res, next) => {
   // generate token (store data encoded + generate signature and append signature to encoded data)
   // signature = encoded data encrypted with secret
   // token = string of encoded data + signature
-  const SECRET = "daHolySecretPrettyLenghtyWithLoadsOfSpecialCharsIdeally"
+  const SECRET = config.JWT_SECRET
   const payload = { _id: userFound._id, email: userFound.email }
   const token = jwt.sign(payload, SECRET, {
     expiresIn: '15m'
