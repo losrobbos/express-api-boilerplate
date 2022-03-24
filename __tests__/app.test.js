@@ -32,14 +32,13 @@ describe('API', () => {
     // store token received from login in variable
     const token = response.headers.authorization
 
+    // expect to fail access to protected route when no token is provided
     response = await restClient.get("/protected")
     expect(response.statusCode).toBe(401)
 
+    // expect to access protected route when valid token is provided
     response = await restClient.get("/protected").set("Authorization", token)
     expect(response.statusCode).toBe(200)
-
-
   });
-
 
 });
