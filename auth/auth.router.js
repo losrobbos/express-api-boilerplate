@@ -28,15 +28,19 @@ authRouter.post("/login", (req, res, next) => {
     })
   }
 
-  // return found user
+  // hide password from any output... 
   delete userFound.password
 
+  // generate token (store data encoded + generate signature and append signature to encoded data)
+  // signature = encoded data encrypted with secret
+  // token = string of encoded data + signature
   const SECRET = "daHolySecretPrettyLenghtyWithLoadsOfSpecialCharsIdeally"
   const payload = { _id: userFound._id, email: userFound.email }
   const token = jwt.sign(payload, SECRET, {
     expiresIn: '15m'
   })
   
+  // return response with found user + token (=identity card of user)
   res.set("Authorization", token)
   res.json(userFound)
 
